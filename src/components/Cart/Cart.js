@@ -45,26 +45,26 @@ const Cart = (props) => {
     }
   };
 
-  const cartItems = (
-    <ul className={classes["cart-items"]}>
-      {cartCtx.items.map((item) => (
-        <CartItem
-          key={item.id}
-          name={item.name}
-          amount={item.amount}
-          price={item.price}
-          onRemove={cartItemRemoveHandler.bind(null, item.id)}
-          onAdd={cartItemAddHandler.bind(null, item)}
-        />
-      ))}
-    </ul>
-  );
-
   const orderClicked = (e) => {
     setOrderClicked(true);
   };
 
   const modalContent = () => {
+    const cartItems = (
+      <ul className={classes["cart-items"]}>
+        {cartCtx.items.map((item) => (
+          <CartItem
+            key={item.id}
+            name={item.name}
+            amount={item.amount}
+            price={item.price}
+            onRemove={cartItemRemoveHandler.bind(null, item.id)}
+            onAdd={cartItemAddHandler.bind(null, { ...item, amount: 1 })}
+          />
+        ))}
+      </ul>
+    );
+
     if (isOrderConfirmed) {
       return (
         <>
